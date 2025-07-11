@@ -46,4 +46,22 @@ module('Acceptance | super rentals', function (hooks) {
 
     assert.strictEqual(currentURL(), '/about');
   });
+
+  test(`'navigating using the nav-bar`, async function (assert) {
+    await visit('/');
+
+    assert.dom('nav').exists();
+    assert.dom('nav a.menu-index').hasText('SuperRentals');
+    assert.dom('nav a.menu-about').hasText('About');
+    assert.dom('nav a.menu-contact').hasText('Contact');
+
+    await click('nav a.menu-about');
+    assert.strictEqual(currentURL(), '/about');
+
+    await click('nav a.menu-contact');
+    assert.strictEqual(currentURL(), '/getting-in-touch');
+
+    await click('nav a.menu-index');
+    assert.strictEqual(currentURL(), '/');
+  });
 });
